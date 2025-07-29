@@ -1,0 +1,15 @@
+{
+  "name": "My Bot",
+  "description": "A Telegram bot.",
+  "env": {
+    "API_ID": {
+      "required": true
+    },
+    "API_HASH": {
+      "required": true
+    },
+    "BOT_TOKEN": {
+      "required": true
+    }
+  }
+}
