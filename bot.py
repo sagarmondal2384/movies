@@ -1,4 +1,3 @@
-
 import sys
 import glob
 import importlib
@@ -51,7 +50,7 @@ async def Jisshu_start():
     print('Initalizing The Movie Provider Bot')
     bot_info = await JisshuBot.get_me()
     JisshuBot.username = bot_info.username
-     await initialize_clients()
+    await initialize_clients()
     for name in files:
         with open(name) as a:
             patt = Path(a.name)
@@ -63,7 +62,6 @@ async def Jisshu_start():
             spec.loader.exec_module(load)
             sys.modules["plugins." + plugin_name] = load
             print("The Movie Provider Imported => " + plugin_name)
-
     if ON_HEROKU:
         asyncio.create_task(ping_server())
     b_users, b_chats = await db.get_banned()
