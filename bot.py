@@ -51,7 +51,18 @@ async def Jisshu_start():
     print('Initalizing The Movie Provider Bot')
     bot_info = await JisshuBot.get_me()
     JisshuBot.username = bot_info.username
-    await message.reply("👋 Welcome to the Movie Bot! Use the buttons below.")
+     await initialize_clients()
+    for name in files:
+        with open(name) as a:
+            patt = Path(a.name)
+            plugin_name = patt.stem.replace(".py", "")
+            plugins_dir = Path(f"plugins/{plugin_name}.py")
+            import_path = "plugins.{}".format(plugin_name)
+            spec = importlib.util.spec_from_file_location(import_path, plugins_dir)
+            load = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(load)
+            sys.modules["plugins." + plugin_name] = load
+            print("The Movie Provider Imported => " + plugin_name)
 
     if ON_HEROKU:
         asyncio.create_task(ping_server())
